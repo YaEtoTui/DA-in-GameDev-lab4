@@ -87,6 +87,136 @@
 ### Построить визуальную модель работы перцептрона на сцене Unity.
 
 
+Визуализацию модели работы перцептрона сделана через вычисления логической операции OR(можно и другие, но на примере я решил сделать через нее), то есть
+0 | 0 -> 0
+0 | 1 -> 1
+1 | 0 -> 0     Если результатом перцептрона будет 0, то цилиндр меняет цвет на белый, 1 - черный 
+1 | 1 -> 1
+
+Весь ход мыслей можно увидеть на следующих скринах ниже. Справа есть значения Number_1 и Number_2, они сделаны, чтобы я мог в метод CalcOutput() подставлять значения:
+![0_0(1)](https://user-images.githubusercontent.com/102538132/202447632-7dc521ee-ff84-48ea-ace6-30914fa39590.png)
+![0_0](https://user-images.githubusercontent.com/102538132/202447639-3203adf9-58cc-479c-9af5-9e50d7c3c35c.png)
+![0_1](https://user-images.githubusercontent.com/102538132/202447649-80702653-78d5-484d-9c8f-1b44db18c1cd.png)
+
+Код к 3 заданию:
+
+Perceptron
+```py
+[System.Serializable]
+public class TrainingSet
+{
+	public double[] input;
+	public double output;
+}
+
+public class Perceptron : MonoBehaviour {
+
+	public int number_1;
+	public int number_2;
+
+	public TrainingSet[] ts;
+	double[] weights = {0,0};
+	double bias = 0;
+	double totalError = 0;
+
+	double DotProductBias(double[] v1, double[] v2) 
+	{
+		if (v1 == null || v2 == null)
+			return -1;
+	 
+		if (v1.Length != v2.Length)
+			return -1;
+	 
+		double d = 0;
+		for (int x = 0; x < v1.Length; x++)
+		{
+			d += v1[x] * v2[x];
+		}
+
+		d += bias;
+	 
+		return d;
+	}
+
+	double CalcOutput(int i)
+	{
+		double dp = DotProductBias(weights,ts[i].input);
+		if(dp > 0) return(1);
+		return (0);
+	}
+
+	void InitialiseWeights()
+	{
+		for(int i = 0; i < weights.Length; i++)
+		{
+			weights[i] = Random.Range(-1.0f,1.0f);
+		}
+		bias = Random.Range(-1.0f,1.0f);
+	}
+
+	void UpdateWeights(int j)
+	{
+		double error = ts[j].output - CalcOutput(j);
+		totalError += Mathf.Abs((float)error);
+		for(int i = 0; i < weights.Length; i++)
+		{			
+			weights[i] = weights[i] + error*ts[j].input[i]; 
+		}
+		bias += error;
+	}
+
+	public double CalcOutput(double i1, double i2)
+	{
+		double[] inp = new double[] {i1, i2};
+		double dp = DotProductBias(weights,inp);
+		if(dp > 0) return(1);
+		return (0);
+	}
+
+	void Train(int epochs)
+	{
+		InitialiseWeights();
+		
+		for(int e = 0; e < epochs; e++)
+		{
+			totalError = 0;
+			for(int t = 0; t < ts.Length; t++)
+			{
+				UpdateWeights(t);
+				Debug.Log("W1: " + (weights[0]) + " W2: " + (weights[1]) + " B: " + bias);
+			}
+			Debug.Log("TOTAL ERROR: " + totalError);
+		}
+	}
+
+	void Start () {
+		Train(8);
+		var value = CalcOutput(number_1, number_2);
+		ChangeColor.OnSearchValue(value);
+		Debug.Log("Test 0 0: " + CalcOutput(number_1, number_2));	
+	}
+	
+```
+
+ChangeColor
+```py
+public class ChangeColor : MonoBehaviour
+{
+    static double value = 0;
+
+    public void OnTriggerEnter(Collider other) {
+        if (value == 0)
+            other.gameObject.GetComponent<Renderer>().material.color = Color.white;
+        else
+            other.gameObject.GetComponent<Renderer>().material.color = Color.black;
+    }
+
+    public static void OnSearchValue(double answer) {
+        value = answer;
+    }
+}
+
+```
 
 ## Выводы
 Выполняя эту лабораторную работу, я впервые поработал с Перцептроном: рассмотрел код перцетрона. Произвел вычисления с помощью логических операций. Узнал, что с помощью 1 перцептрона нельхя найти данные через XOR, так как XOR - нелинейноделимая. 

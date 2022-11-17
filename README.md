@@ -122,6 +122,8 @@ double DotProductBias(double[] v1, double[] v2)
 ![0_0](https://user-images.githubusercontent.com/102538132/202447639-3203adf9-58cc-479c-9af5-9e50d7c3c35c.png)
 ![0_0(1)](https://user-images.githubusercontent.com/102538132/202447632-7dc521ee-ff84-48ea-ace6-30914fa39590.png)
 ![0_1](https://user-images.githubusercontent.com/102538132/202447649-80702653-78d5-484d-9c8f-1b44db18c1cd.png)
+![1_1](https://user-images.githubusercontent.com/102538132/202453219-ebd3b2d1-5926-4818-b46b-af26deb5164b.png)
+
 
 Код к 3 заданию:
 

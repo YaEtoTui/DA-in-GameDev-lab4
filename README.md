@@ -47,16 +47,19 @@
 
 #### OR
  Данные совпадают с теми, которые мы хотели найти.
+ 
 ![OR](https://user-images.githubusercontent.com/102538132/202405188-5ca4daea-c774-487c-8902-b7cdbcd6a1fe.png)
 
 
 #### AND
  Данные совпадают с теми, которые мы хотели найти.
+ 
 ![AND](https://user-images.githubusercontent.com/102538132/202405193-e21898f9-5068-4013-b251-f3db4c1887ef.png)
 
 
 #### NAND
  Данные совпадают с теми, которые мы хотели найти.
+ 
 ![NAND](https://user-images.githubusercontent.com/102538132/202407592-5280f6e5-67d5-4e8e-b6a0-306b5377f616.png)
 
 
